@@ -49,4 +49,69 @@ public class MSTAlgorithm {
         long executionTime = (System.nanoTime() - startTime) / 1_000_000;
         return new MSTResult(mstEdges, totalWeight, operationsCount, executionTime);
     }
+
+    public static MSTResult kruskalMST(Graph graph) {
+        long startTime = System.nanoTime();
+        int operationsCount = 0;
+
+        List<Edge> mstEdges = new ArrayList<>();
+        int totalWeight = 0;
+
+        List<Edge> sortedEdges = new ArrayList<>(graph.getEdges());
+        Collections.sort(sortedEdges);
+        operationsCount += sortedEdges.size() * (int)(Math.log(sortedEdges.size()) / Math.log(2));
+
+        Map<String, Integer> vertexToIndex = new HashMap<>();
+        for (int i = 0; i < graph.getVertices().size(); i++) {
+            vertexToIndex.put(graph.getVertices().get(i), i);
+            operationsCount++;
+        }
+
+        DSU dsu = new DSU(graph.getVertexCount());
+
+        for (Edge edge : sortedEdges) {
+            int u = vertexToIndex.get(edge.getFrom());
+            int v = vertexToIndex.get(edge.getTo());
+
+            if (dsu.union(u, v)) {
+                mstEdges.add(edge);
+                totalWeight += edge.getWeight();
+                operationsCount += 2;
+            }
+            operationsCount++;
+
+            if (mstEdges.size() == graph.getVertexCount() - 1) {
+                break;
+            }
+        }
+
+        operationsCount += dsu.getOperationsCount();
+        long executionTime = (System.nanoTime() - startTime) / 1_000_000;
+
+        return new MSTResult(mstEdges, totalWeight, operationsCount, executionTime);
+    }
+
+    public static void compareAlgorithms(Graph graph) {
+        System.out.println("=== Graph " + graph.getId() + " ===");
+        System.out.println("Vertices: " + graph.getVertexCount() + ", Edges: " + graph.getEdgeCount());
+
+        MSTResult primResult = primMST(graph);
+        MSTResult kruskalResult = kruskalMST(graph);
+
+        System.out.println("Prim - Cost: " + primResult.getTotalWeight() +
+                         ", Time: " + primResult.getExecutionTimeMs() + "ms" +
+                         ", Operations: " + primResult.getOperations());
+
+        System.out.println("Kruskal - Cost: " + kruskalResult.getTotalWeight() +
+                         ", Time: " + kruskalResult.getExecutionTimeMs() + "ms" +
+                         ", Operations: " + kruskalResult.getOperations());
+
+        if (primResult.getTotalWeight() == kruskalResult.getTotalWeight()) {
+            System.out.println("✓ MST costs are identical");
+        } else {
+            System.out.println("✗ ERROR: MST costs differ!");
+        }
+
+        System.out.println();
+    }
 }
