@@ -7,19 +7,13 @@ public class Main {
             System.out.println("=== Java MST Algorithms - City Road Optimization ===");
             System.out.println("Loading graphs and calculating Minimum Spanning Trees...\n");
 
-            File inputFile = new File("input.json");
-            if (!inputFile.exists()) {
-                System.out.println("Creating sample input file...");
-                JSONProcessor.createSampleInputFile("input.json");
-            }
-
             List<Graph> graphs = JSONProcessor.readGraphsFromFile("input.json");
             System.out.println("✓ Loaded " + graphs.size() + " graphs from input.json");
 
             MSTResult[] primResults = new MSTResult[graphs.size()];
             MSTResult[] kruskalResults = new MSTResult[graphs.size()];
 
-            System.out.println("\n=== Processing Graphs ===");
+            System.out.println("\n=== Processing Graphs from input.json ===");
             for (int i = 0; i < graphs.size(); i++) {
                 Graph graph = graphs.get(i);
                 System.out.println("\n--- Graph " + graph.getId() + " ---");
@@ -39,8 +33,7 @@ public class Main {
                 if (primResults[i].getTotalWeight() == kruskalResults[i].getTotalWeight()) {
                     System.out.println("✓ CORRECT: Both algorithms found MST with cost " + primResults[i].getTotalWeight());
                 } else {
-                    System.out.println("✗ ERROR: MST costs differ! Prim: " + primResults[i].getTotalWeight() +
-                                     ", Kruskal: " + kruskalResults[i].getTotalWeight());
+                    System.out.println("✗ ERROR: MST costs differ! Prim: " + primResults[i].getTotalWeight() + ", Kruskal: " + kruskalResults[i].getTotalWeight());
                 }
 
                 System.out.println("Performance comparison:");
@@ -52,10 +45,12 @@ public class Main {
 
             printFinalSummary(graphs, primResults, kruskalResults);
 
-            if (args.length > 0 && args[0].equals("--test")) {
+            CSVExporter.writeSummary(graphs, primResults, kruskalResults, "results_summary.csv", true);
+            System.out.println("✓ Appended summary to results_summary.csv");
+
+            if (args.length > 0 && Arrays.asList(args).contains("--test")) {
                 runTests();
             }
-
         } catch (Exception e) {
             System.err.println("❌ Error: " + e.getMessage());
             e.printStackTrace();

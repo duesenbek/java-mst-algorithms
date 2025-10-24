@@ -8,7 +8,7 @@ public class MSTAlgorithm {
 
         if (graph.getVertices().isEmpty()) {
             long executionTime = (System.nanoTime() - startTime) / 1_000_000;
-            return new MSTResult(new ArrayList<>(), 0, operationsCount, executionTime);
+            return new MSTResult(new ArrayList<>(), 0, operationsCount, executionTime, true);
         }
 
         List<Edge> mstEdges = new ArrayList<>();
@@ -47,7 +47,8 @@ public class MSTAlgorithm {
         }
 
         long executionTime = (System.nanoTime() - startTime) / 1_000_000;
-        return new MSTResult(mstEdges, totalWeight, operationsCount, executionTime);
+        boolean connected = visited.size() == graph.getVertexCount();
+        return new MSTResult(mstEdges, totalWeight, operationsCount, executionTime, connected);
     }
 
     public static MSTResult kruskalMST(Graph graph) {
@@ -87,8 +88,8 @@ public class MSTAlgorithm {
 
         operationsCount += dsu.getOperationsCount();
         long executionTime = (System.nanoTime() - startTime) / 1_000_000;
-
-        return new MSTResult(mstEdges, totalWeight, operationsCount, executionTime);
+        boolean connected = graph.getVertexCount() == 0 || mstEdges.size() == graph.getVertexCount() - 1;
+        return new MSTResult(mstEdges, totalWeight, operationsCount, executionTime, connected);
     }
 
     public static void compareAlgorithms(Graph graph) {

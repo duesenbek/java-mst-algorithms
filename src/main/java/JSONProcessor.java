@@ -93,7 +93,8 @@ public class JSONProcessor {
         algoResult.put("total_cost", result.getTotalWeight());
         algoResult.put("operations_count", result.getOperations());
         algoResult.put("execution_time_ms", result.getExecutionTimeMs());
-
+        algoResult.put("connected", result.isConnected());
+        
         return algoResult;
     }
 
