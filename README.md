@@ -1,9 +1,9 @@
 # MST Algorithms: City Transportation Network Optimization
 
-## Project Overview
+## 📊 Project Overview
 This project implements Prim's and Kruskal's algorithms to find Minimum Spanning Trees (MST) for optimizing city transportation networks. It calculates the most cost‑effective road connections between city districts and compares algorithm performance.
 
-## Assignment Requirements Completed
+ ## ✅Assignment Requirements Completed
 
 - Prim's Algorithm
 - Kruskal's Algorithm (with DSU)
@@ -11,7 +11,7 @@ This project implements Prim's and Kruskal's algorithms to find Minimum Spanning
 - CSV summary export of performance metrics
 - Performance metrics recorded: execution time (ms), operation counts, connectivity
 
-## Quick Start
+## 🚀Quick Start
 
 ### Prerequisites
 - Java 11+
@@ -28,7 +28,7 @@ mvn -q exec:java -Dexec.mainClass="Main"
 mvn test
 ```
 
-## Project Structure
+## 📁Project Structure
 ```text
 java-mst-algorithms/
 ├── input.json                 # All datasets merged into one file (11 graphs)
@@ -70,7 +70,7 @@ java-mst-algorithms/
     - prim_cost, prim_time_ms, prim_ops, prim_connected
     - kruskal_cost, kruskal_time_ms, kruskal_ops, kruskal_connected
 
-## MST Algorithms Performance Analysis
+## 📈MST Algorithms Performance Analysis
 #### Based on 11 Test Graphs (4-30 vertices)
 ##### Prim Algorithm
 - Total Operations: 696
@@ -88,22 +88,22 @@ java-mst-algorithms/
 <img width="1184" height="195" alt="Снимок экрана 2025-10-24 233218" src="https://github.com/user-attachments/assets/b328cd47-6267-469a-a26d-493d0594ff17" />
 
 
-#### Key Performance Findings
-- ✅ Both algorithms produced identical MST costs - Correctness verified across all 11 graphs
-- ⚡ Prim is 3.67x more efficient on average - 696 total operations vs 2,556 for Kruskal
-- 📈 Kruskal shows consistent overhead - Operations ratio remains stable (2.9x-4.1x) across graph sizes
-- 🎯 Prim scales better - More efficient growth pattern with increasing graph size
-- 🔧 Recommendation - Use Prim for better performance, Kruskal when edge sorting is available or for sparse graphs
+#### 🎯Key Performance Findings
+-  Both algorithms produced identical MST costs - Correctness verified across all 11 graphs
+-  Prim is 3.67x more efficient on average - 696 total operations vs 2,556 for Kruskal
+-  Kruskal shows consistent overhead - Operations ratio remains stable (2.9x-4.1x) across graph sizes
+-  Prim scales better - More efficient growth pattern with increasing graph size
+-  Recommendation - Use Prim for better performance, Kruskal when edge sorting is available or for sparse graphs
 
 - Use results_summary.csv for exact totals:
   - Total Prim Operations = sum of prim_ops
   - Total Kruskal Operations = sum of kruskal_ops
   - Compare median/mean execution times and operations across size ranges.
 
-## How to Reproduce Results
+## 🔧How to Reproduce Results
 - Edit input.json to adjust datasets if needed.
 - Run the app to regenerate output.json and append to results_summary.csv.
 - Optionally aggregate or visualize results (e.g., spreadsheets or plotting tools).
 
-#### made for Design and Analysis of Algorithms course.
-#### Astana IT University 2025
+#### 📝 made for Design and Analysis of Algorithms course.
+#### 👥 Astana IT University 2025
